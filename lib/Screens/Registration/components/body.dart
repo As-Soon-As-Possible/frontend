@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Login/login_screen.dart';
-import 'package:flutter_auth/Screens/Registration/components/background.dart';
 // import 'package:flutter_auth/Screens/Registration/components/or_divider.dart';
 // import 'package:flutter_auth/Screens/Registration/components/social_icon.dart';
-import 'package:flutter_auth/components/already_have_an_account_acheck.dart';
-import 'package:flutter_auth/components/rounded_button.dart';
-import 'package:flutter_auth/components/rounded_input_field.dart';
-import 'package:flutter_auth/components/rounded_password_field.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:ibm/Screens/Login/login_screen.dart';
+import 'package:ibm/components/already_have_an_account_acheck.dart';
+import 'package:ibm/components/rounded_button.dart';
+import 'package:ibm/components/rounded_input_field.dart';
+import 'package:ibm/components/rounded_password_field.dart';
+
+import 'background.dart';
 
 class Body extends StatelessWidget {
   @override

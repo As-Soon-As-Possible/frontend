@@ -4,7 +4,7 @@
 //
 // const jsonData = '{ "location": "123123213", "city": "Kochi" , "state":"Kerala", "Latitude":"37.773972" ,"Longitude":"122.431297" }';
 //
-// cclass Victim {
+// class Victim {
 // String location;
 // String city;
 // String state;
@@ -41,7 +41,7 @@
 // }
 //
 // class VictimMap extends StatefulWidget {
-//   const VictimMap({Key? key}) : super(key: key);
+//   const VictimMap({Key key}) : super(key: key);
 //
 //   @override
 //   _VictimMapState createState() => _VictimMapState();
@@ -55,11 +55,22 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       body: GoogleMap(
-//         myLocationButtonEnabled: false,
-//         zoomControlsEnabled: false,
-//         initialCameraPosition: _initialCameraPosition,
-//       ),
+//       body: Container(
+//             height: MediaQuery.of(context).size.height,
+//         width: MediaQuery.of(context).size.width,
+//
+//         // decoration: BoxDecoration(
+//       //     borderRadius: BorderRadius.circular(15.0),
+//       //     border: Border.all(
+//       //         color: Colors.green,
+//       //         width: 2.0
+//       //     ),
+//           child: GoogleMap(
+//       //     myLocationButtonEnabled: false,
+//       //     zoomControlsEnabled: false,
+//       //     initialCameraPosition: _initialCameraPosition,
+//       //   ),
+//       // ),
 //     );
 //   }
 // }

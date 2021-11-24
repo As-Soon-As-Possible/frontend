@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/Screens/Registration/components/body.dart';
+
+import 'components/body.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
