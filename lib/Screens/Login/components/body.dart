@@ -4,6 +4,7 @@ import 'package:ibm/components/already_have_an_account_acheck.dart';
 import 'package:ibm/components/rounded_button.dart';
 import 'package:ibm/components/rounded_input_field.dart';
 import 'package:ibm/components/rounded_password_field.dart';
+import 'package:ibm/get_current_location.dart';
 
 import 'background.dart';
 
@@ -39,7 +40,15 @@ class Body extends StatelessWidget {
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MyLocation();
+                  },
+                ),
+              );},
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -48,7 +57,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return MyLocation();
                     },
                   ),
                 );

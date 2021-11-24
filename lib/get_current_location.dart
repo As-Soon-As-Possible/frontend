@@ -1,14 +1,20 @@
-
 import 'dart:async';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
+import 'package:ibm/locations.dart';
+import 'package:ibm/map_marker.dart';
+import 'package:location/location.dart' as Location;
 import 'package:geocoder/geocoder.dart';
 import 'package:intl/intl.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'marker_generator.dart';
+
 
 class MyLocation extends StatefulWidget {
+  static final String id = 'my_location';
+  const MyLocation({Key key}) : super(key: key);
+
   @override
   _MyLocationState createState() => _MyLocationState();
 }
@@ -19,12 +25,24 @@ class _MyLocationState extends State<MyLocation> {
   BitmapDescriptor sourceIcon;
   BitmapDescriptor destinationIcon;
 
+  List<MapMarker> mapMarkers = [];
+  List<Marker> customMarkers = [];
+  List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
+    bitmaps.asMap().forEach((i, bmp) {
+      customMarkers.add(Marker(
+        markerId: MarkerId("$i"),
+        position: locations[i].coordinates,
+        icon: BitmapDescriptor.fromBytes(bmp),
+      ));
+    });
+  }
 
-  LocationData _currentPosition;
+
+  Location.LocationData _currentPosition;
   String _address,_dateTime;
   GoogleMapController mapController;
   Marker marker;
-  Location location = Location();
+  Location.Location location = Location.Location();
 
   GoogleMapController _controller;
   Marker _origin;
@@ -36,6 +54,11 @@ class _MyLocationState extends State<MyLocation> {
     // TODO: implement initState
     super.initState();
     getLoc();
+    MarkerGenerator(markerWidgets(), (bitmaps) {
+      setState(() {
+        mapBitmapsToMarkers(bitmaps);
+      });
+    }).generate(context);
 
   }
 
@@ -48,7 +71,6 @@ class _MyLocationState extends State<MyLocation> {
           CameraPosition(target: LatLng(l.latitude, l.longitude),zoom: 10),
         ),
       );
-
     });
   }
 
@@ -71,18 +93,19 @@ class _MyLocationState extends State<MyLocation> {
                     width: MediaQuery.of(context).size.width,
                     child:GoogleMap(
 
-                      markers: {
-                        if(_origin!=null) _origin,
-                        if(_destination!=null) _destination,
-
-                      },
-                      onLongPress: _addMarker,
-
+                      // markers: {
+                      //   if(_origin!=null) _origin,
+                      //   if(_destination!=null) _destination,
+                      //
+                      // },
+                      // onLongPress: _addMarker,
+                      markers: customMarkers.toSet(),
                       myLocationButtonEnabled: true,
                       // zoomControlsEnabled: false,
                       initialCameraPosition: CameraPosition(target: _initialcameraposition),
                       mapType: MapType.normal,
                       onMapCreated: _onMapCreated,
+
 
                       myLocationEnabled: true,
                     ),
@@ -137,7 +160,7 @@ class _MyLocationState extends State<MyLocation> {
 
   getLoc() async{
     bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    Location.PermissionStatus _permissionGranted;
 
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -148,16 +171,16 @@ class _MyLocationState extends State<MyLocation> {
     }
 
     _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
+    if (_permissionGranted == Location.PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+      if (_permissionGranted != Location.PermissionStatus.granted) {
         return;
       }
     }
 
     _currentPosition = await location.getLocation();
     _initialcameraposition = LatLng(_currentPosition.latitude,_currentPosition.longitude);
-    location.onLocationChanged.listen((LocationData currentLocation) {
+    location.onLocationChanged.listen((Location.LocationData currentLocation) {
       print("${currentLocation.longitude} : ${currentLocation.longitude}");
       setState(() {
         _currentPosition = currentLocation;
@@ -183,6 +206,9 @@ class _MyLocationState extends State<MyLocation> {
     return add;
   }
 
+  List<Widget> markerWidgets() {
+    return locations.map((l) => MapMarker(l)).toList();
+  }
 
   void _addMarker(LatLng pos)
   {
