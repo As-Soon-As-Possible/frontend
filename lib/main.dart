@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
         MyLocation.id:(context) => MyLocation(),
         SignUpScreen.id:(context) => SignUpScreen(),
         LoginScreen.id:(context) => LoginScreen(),
+        VictimMap.id:(context) => VictimMap(),
 
 
       },
