@@ -42,13 +42,14 @@ class Body extends StatelessWidget {
               text: "LOGIN",
               press: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return MyLocation();
-                  },
-                ),
-              );},
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MyLocation();
+                    },
+                  ),
+                );
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -57,7 +58,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return MyLocation();
+                      return SignUpScreen();
                     },
                   ),
                 );
