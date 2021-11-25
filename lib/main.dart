@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ibm/Screens/Login/login_screen.dart';
 import 'package:ibm/Screens/Registration/signup_screen.dart';
 import 'get_current_location.dart';
-import 'package:ibm/Victim Page.dart';
+import 'package:ibm/victim_page.dart';
 
 // void main() => runApp(const MyApp());
 

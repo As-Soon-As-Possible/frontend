@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:ibm/Victim Page.dart';
+import 'package:ibm/victim_page.dart';
 import 'http_get_model.dart';
 import 'package:ibm/network.dart';
 
@@ -16,8 +16,8 @@ class Location {
 List<Location> locations = [
   Location(LatLng(9.931233, 76.267303), "Sandeep"),
   Location(LatLng(9.93123300000, 76.26730300), "Kavya"),
-  Location(LatLng( 8.488204052, 76.95222365), "Subway"),
-  Location(LatLng(12.68635, 74.9039), "Starbucks")
+  Location(LatLng( 9.9644000000, 76.2874000), "Alan"),
+  Location(LatLng(10.0327000000, 76.331900), "Arjun")
 ];
 
 class HomeScreen extends StatelessWidget {

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:ibm/locations.dart';
 import 'package:ibm/map_marker.dart';
+import 'package:ibm/victim_page.dart';
 import 'package:location/location.dart' as Location;
 import 'package:geocoder/geocoder.dart';
 import 'package:intl/intl.dart';
@@ -82,73 +83,110 @@ class _MyLocationState extends State<MyLocation> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: SafeArea(
-          child: Container(
-            color: Colors.blueGrey.withOpacity(.8),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height:  MediaQuery.of(context).size.height/1.2,
-                    width: MediaQuery.of(context).size.width,
-                    child:GoogleMap(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height:  MediaQuery.of(context).size.height/1.19,
+                  width: MediaQuery.of(context).size.width,
+                  child:GoogleMap(
 
-                      // markers: {
-                      //   if(_origin!=null) _origin,
-                      //   if(_destination!=null) _destination,
-                      //
-                      // },
-                      // onLongPress: _addMarker,
-                      markers: customMarkers.toSet(),
-                      myLocationButtonEnabled: true,
-                      // zoomControlsEnabled: false,
-                      initialCameraPosition: CameraPosition(target: _initialcameraposition),
-                      mapType: MapType.normal,
-                      onMapCreated: _onMapCreated,
+                    // markers: {
+                    //   if(_origin!=null) _origin,
+                    //   if(_destination!=null) _destination,
+                    //
+                    // },
+                    // onLongPress: _addMarker,
+                    markers: customMarkers.toSet(),
+                    myLocationButtonEnabled: true,
+                    // zoomControlsEnabled: false,
+                    initialCameraPosition: CameraPosition(target: _initialcameraposition),
+                    mapType: MapType.normal,
+                    onMapCreated: _onMapCreated,
 
 
-                      myLocationEnabled: true,
-                    ),
+                    myLocationEnabled: true,
                   ),
-                  // SizedBox(
-                  //   height: 3,
-                  // ),
-                  // if (_dateTime != null)
-                  //   Text(
-                  //     "Date/Time: $_dateTime",
-                  //     style: TextStyle(
-                  //       fontSize: 15,
-                  //       color: Colors.white,
-                  //     ),
-                  //   ),
+                ),
+                // SizedBox(
+                //   height: 3,
+                // ),
+                // if (_dateTime != null)
+                //   Text(
+                //     "Date/Time: $_dateTime",
+                //     style: TextStyle(
+                //       fontSize: 15,
+                //       color: Colors.white,
+                //     ),
+                //   ),
 
-                  // SizedBox(
-                  //   height: 3,
-                  // ),
-                  if (_currentPosition != null)
-                    Text(
-                      "Latitude: ${_currentPosition.latitude}, Longitude: ${_currentPosition.longitude}",
-                      style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                // SizedBox(
+                //   height: 3,
+                // ),
+
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      color: Colors.blueGrey.withOpacity(.8),
+                      // border: Border.all(
+                      //     color: Colors.green,
+                          // width: 2.0
+                      // ),
                     ),
-                  // SizedBox(
-                  //   height: 3,
-                  // ),
-                  if (_address != null)
-                    Text(
-                      "Address: $_address",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
+                    // color:
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 8.0),
+                      child: Column(
+                        children: [
+                          if (_currentPosition != null)
+                            Text(
+                              "Latitude: ${_currentPosition.latitude}, Longitude: ${_currentPosition.longitude}",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          if (_address != null)
+                            Text(
+                              "Address: $_address",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                  // SizedBox(
-                  //   height: 3,
-                  // ),
-                ],
-              ),
+                  ),
+                Padding(
+                  padding:  EdgeInsets.only(bottom: 8.0,top: 5),
+                  child: Container(
+                    width: 400.0,
+                    child: FloatingActionButton.extended(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return VictimMap();
+                            },
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.account_circle),
+                      label: Text("Find nearest victim"),
+                    ),
+                  ),
+                ),
+                // SizedBox(
+                //   height: 3,
+                // ),
+
+                // SizedBox(
+                //   height: 3,
+                // ),
+              ],
             ),
           ),
         ),
